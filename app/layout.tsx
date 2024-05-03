@@ -33,7 +33,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={PoppinsFont.className}>{children}</body>
+      <body className={PoppinsFont.className}>
+        <main className="selection:bg-primary selection:text-background">
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
