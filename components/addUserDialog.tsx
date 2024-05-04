@@ -1,48 +1,43 @@
 import {
     Dialog,
+    DialogClose,
     DialogContent,
     DialogDescription,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog"
-import { useEffect, useState } from "react";
-import { patchAccount } from "@/app/dashboard/admin/actions";
+import { useState } from "react";
+import { postAccount } from "@/app/dashboard/admin/actions";
 import { LoaderCircle } from 'lucide-react';
+import { postUser } from "@/app/dashboard/account/actions";
 
-export default function PatchAccountDialog({ id, emailDefault, open, setDialogOpen }: { id: string, emailDefault: string, open: boolean, setDialogOpen: (open: boolean) => void }) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState<string | null>(null);
+export default function AddUserDialog({ open, setDialogOpen }: { open: boolean, setDialogOpen: (open: boolean) => void }) {
+    const [nim, setNim] = useState("");
+    const [nama, setNama] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        setEmail(emailDefault);
-    }, [emailDefault])
-
-    async function editAccount() {
-        if (!email) {
-            return setError("Email tidak boleh kosong");
-        }
-
-        if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)) {
-            return setError("Email tidak valid");
+    async function addAccount() {
+        if (!nim || !nama) {
+            return setError("NIM dan nama tidak boleh kosong");
         }
 
         setError("");
 
         setLoading(true);
 
-        const valid = await patchAccount(id, email, password)
+        const valid = await postUser(nim, nama)
 
         setLoading(false);
 
         if (!valid) {
-            return setError("Ada masalah saat mengedit akun");
+            return setError("Ada masalah saat menambahkan user");
         }
 
         setDialogOpen(false);
-        setEmail("");
-        setPassword("");
+        setNim("");
+        setNama("");
         window.location.reload();
     }
 
@@ -50,20 +45,20 @@ export default function PatchAccountDialog({ id, emailDefault, open, setDialogOp
         <Dialog open={open}>
             <DialogContent className='bg-background'>
                 <DialogHeader>
-                    <DialogTitle className="mb-6">Edit Akun</DialogTitle>
+                    <DialogTitle className="mb-6">Tambahkan User</DialogTitle>
                     <DialogDescription className="flex flex-col gap-y-6">
                         <input
-                            type="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            type="number"
+                            placeholder="Nim"
+                            value={nim}
+                            onChange={(e) => setNim(e.target.value)}
                             className="w-full px-4 py-2 rounded-lg border border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                         />
                         <input
-                            type="password"
-                            placeholder="Password"
-                            value={password ?? ""}
-                            onChange={(e) => setPassword(e.target.value)}
+                            type="text"
+                            placeholder="Nama"
+                            value={nama}
+                            onChange={(e) => setNama(e.target.value)}
                             className="w-full px-4 py-2 rounded-lg border border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                         />
                         {
@@ -78,11 +73,11 @@ export default function PatchAccountDialog({ id, emailDefault, open, setDialogOp
                             </button>
                             <button
                                 disabled={loading}
-                                onClick={editAccount}
-                                className="bg-primary flex items-center justify-center w-full text-center text-sm md:text-base lg:text-xl text-background rounded-2xl font-semibold hover:opacity-80 px-6 py-2"
+                                onClick={addAccount}
+                                className="bg-primary flex justify-center items-center w-full text-center text-sm md:text-base lg:text-xl text-background rounded-2xl font-semibold hover:opacity-80 px-6 py-2"
                             >
                                 {
-                                    loading ? <LoaderCircle className="animate-spin" /> : "Edit"
+                                    loading ? <LoaderCircle className='animate-spin' /> : "Tambahkan User"
                                 }
                             </button>
                         </div>

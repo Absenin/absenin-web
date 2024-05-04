@@ -38,7 +38,6 @@ export default function Page() {
                 if (data) {
                     setAccountsData(data);
                     setFetched(true);
-                    console.log(data)
                 }
             });
         }
