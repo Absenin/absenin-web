@@ -1,6 +1,6 @@
 "use server"
 
-const { cookies } = require("next/headers")
+import { cookies } from "next/headers"
 
 export async function loginAccount(email: string, password: string): Promise<{ valid: boolean, session: string }> {
     const cookieStore = cookies()

@@ -4,11 +4,13 @@ import Link from "next/link";
 import { useState } from "react";
 import { loginAccount } from "./actions";
 import { useRouter } from "next/navigation";
+import Loading from "@/components/loading";
 
 export default function Page() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
     const router = useRouter()
 
     async function handleSubmit() {
@@ -22,6 +24,8 @@ export default function Page() {
 
         setError("");
 
+        setLoading(true);
+
         const response = await loginAccount(email, password)
 
         if (!response.valid) {
@@ -30,6 +34,8 @@ export default function Page() {
 
         router.push("/dashboard/account")
     }
+
+    if (loading) return <Loading />
 
     return (
         <main className="flex md:items-center md:justify-center min-h-screen text-text bg-background pt-10 lg:pt-0">
