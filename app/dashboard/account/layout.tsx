@@ -31,7 +31,7 @@ export default function Layout({
                 }
             });
         }
-    }, [])
+    }, [fetched, router])
 
     if (!userData) {
         return (

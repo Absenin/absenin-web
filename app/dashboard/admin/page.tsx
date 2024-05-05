@@ -43,7 +43,7 @@ export default function Page() {
                 }
             });
         }
-    }, [])
+    }, [fetched, router])
 
     function addAccount() {
         setAddDialogOpen(true);
@@ -118,7 +118,7 @@ export default function Page() {
                     </TableHeader>
                     <TableBody>
                         {accountsData?.data.map((account) => (
-                            <TableRow>
+                            <TableRow key={account.id}>
                                 <TableCell className="font-medium">{account.id}</TableCell>
                                 <TableCell>{account.email}</TableCell>
                                 <TableCell className='text-right'>{new Date(account.createdAt).toLocaleString()}</TableCell>
