@@ -7,10 +7,9 @@ import { getSession, putAttendance, urlSafeBase64Decode } from "./actions";
 import Loading from "@/components/loading";
 import FingerPrint from "@fingerprintjs/fingerprintjs"
 import RequestIp from "request-ip";
-import { NextRequest } from "next/server";
 import { LoaderCircle } from "lucide-react";
 
-export default function Page(req: NextRequest) {
+export default function Page() {
     const router = useRouter();
     const params = useParams() as { data: string };
     const [nim, setNim] = useState("");
