@@ -8,7 +8,6 @@ export interface IAttendance {
         user: {
             name: string,
             nim: string,
-            photo: string | null,
         }
         id: string
     }[],

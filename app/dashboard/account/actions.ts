@@ -5,7 +5,6 @@ export interface IUser {
         created_at: string,
         name: string,
         nim: string,
-        photo: string | null,
         id: string
     }[]
 }

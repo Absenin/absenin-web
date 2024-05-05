@@ -3,7 +3,6 @@
 import { cookies } from "next/headers"
 import { headers } from 'next/headers'
 
-
 export async function getSession(dateId: string, fingerPrint: string) {
     const cookieStore = cookies()
     const header = headers()

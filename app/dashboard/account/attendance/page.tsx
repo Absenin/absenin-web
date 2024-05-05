@@ -85,7 +85,6 @@ export default function Page() {
         worksheet.columns = [
             { header: "NIM", key: "nim" },
             { header: "Nama", key: "name" },
-            { header: "Foto", key: "photo" },
             { header: "Absen Pada", key: "created_at" },
         ];
 
@@ -93,7 +92,6 @@ export default function Page() {
             worksheet.addRow({
                 nim: attendance.user.nim,
                 name: attendance.user.name,
-                photo: attendance.user.photo,
                 created_at: new Date(attendance.created_at).toLocaleString(),
             });
         });
@@ -213,7 +211,6 @@ export default function Page() {
                                 <TableRow className='*:font-semibold *:text-xl'>
                                     <TableHead>NIM</TableHead>
                                     <TableHead>Nama</TableHead>
-                                    <TableHead>Foto</TableHead>
                                     <TableHead className='text-right'>Absen Pada</TableHead>
                                 </TableRow>
                             </TableHeader>
@@ -222,7 +219,6 @@ export default function Page() {
                                     <TableRow key={attendance.id}>
                                         <TableCell className="font-medium">{attendance.user.nim}</TableCell>
                                         <TableCell>{attendance.user.name}</TableCell>
-                                        <TableCell className=''>{attendance.user.photo ? attendance.user.photo : "-"}</TableCell>
                                         <TableCell className='text-right'>{new Date(attendance.created_at).toLocaleString()}</TableCell>
                                     </TableRow>
                                 )) : (

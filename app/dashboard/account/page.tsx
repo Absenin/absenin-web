@@ -141,7 +141,6 @@ export default function Page() {
                         <TableRow className='*:font-semibold *:text-xl'>
                             <TableHead>NIM</TableHead>
                             <TableHead>Nama</TableHead>
-                            <TableHead>Foto</TableHead>
                             <TableHead className='text-right'>Dibuat Pada</TableHead>
                             <TableHead className='text-right'>Aksi</TableHead>
                         </TableRow>
@@ -151,7 +150,6 @@ export default function Page() {
                             <TableRow key={user.id}>
                                 <TableCell className="font-medium">{user.nim}</TableCell>
                                 <TableCell>{user.name}</TableCell>
-                                <TableCell className=''>{user.photo ? user.photo : "-"}</TableCell>
                                 <TableCell className='text-right'>{new Date(user.created_at).toLocaleString()}</TableCell>
                                 <TableCell className='text-right flex items-center gap-x-3 justify-end'>
                                     <button onClick={() => editUser(user.id)}>
