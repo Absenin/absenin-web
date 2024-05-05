@@ -136,7 +136,7 @@ export default function Page() {
             dateId: attendanceData.id,
             expiredAt: new Date().getTime() + 1000 * 60 * 10
         }))}`, function (err, url) {
-            if (err) return console.error(err);
+            if (err) return
             setDialogShowed(true);
             setQrImage(url);
         });

@@ -50,9 +50,8 @@ export default function Page() {
         setError("")
         setLoading(true)
         putAttendance(nim).then((res) => {
-            console.log(res)
             if (res === true) {
-                router.push("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+                setAttended(true)
             } else {
                 setError(res)
             }
