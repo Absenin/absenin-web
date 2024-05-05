@@ -19,6 +19,7 @@ import { LoaderCircle } from 'lucide-react';
 
 export default function Page() {
     const [accountsData, setAccountsData] = useState<IData>();
+    const [accountsFullData, setAccountsFullData] = useState<IData>();
     const [fetched, setFetched] = useState(false);
     const router = useRouter();
     const [addDialogOpen, setAddDialogOpen] = useState(false);
@@ -37,6 +38,7 @@ export default function Page() {
 
                 if (data) {
                     setAccountsData(data);
+                    setAccountsFullData(data);
                     setFetched(true);
                 }
             });
@@ -74,6 +76,23 @@ export default function Page() {
         )
     }
 
+    function search(value: string) {
+        if (!accountsFullData) return;
+
+        if (!value || value === "") return setAccountsData(accountsFullData);
+
+        if (parseInt(value)) {
+            setAccountsData({
+                data: accountsFullData?.data.filter((user) => user.id.includes(value))!
+            });
+            return;
+        }
+
+        setAccountsData({
+            data: accountsFullData?.data.filter((user) => user.email.toLowerCase().includes(value.toLowerCase()))!
+        });
+    }
+
     return (
         <main className='bg-background min-h-screen text-text'>
             <AddAccountDialog open={addDialogOpen} setDialogOpen={setAddDialogOpen} />
@@ -85,6 +104,8 @@ export default function Page() {
                 <button onClick={addAccount} className='bg-primary px-4 py-2 rounded-xl text-background w-fit font-semibold'>
                     Tambah Akun
                 </button>
+
+                <input onChange={(e) => search(e.target.value)} className="bg-background px-4 py-2 rounded-lg border-2 border-primary focus:outline-none" placeholder="Cari"></input>
 
                 <Table className='border-2'>
                     <TableHeader>
