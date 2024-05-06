@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
     Table,
     TableBody,
@@ -29,6 +29,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog"
 import Image from "next/image";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 function QRDialog({ open, qrImage, setDialogOpen }: { open: boolean, qrImage: string, setDialogOpen: (open: boolean) => void }) {
     return (
@@ -49,7 +50,10 @@ function QRDialog({ open, qrImage, setDialogOpen }: { open: boolean, qrImage: st
 }
 
 export default function Page() {
-    const [date, setDate] = useState<Date>(new Date());
+    const pathname = usePathname();
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const [date, setDate] = useState<Date>(searchParams.has('date') ? new Date(parseInt(searchParams.get('date')!)) : new Date());
     const [attendanceData, setAttendanceData] = useState<IAttendance | null>();
     const [attendanceFullData, setAttendanceFullData] = useState<IAttendance | null>();
     const [loading, setLoading] = useState(false);
@@ -71,10 +75,20 @@ export default function Page() {
         });
     }, [date])
 
+    const createQueryString = useCallback((
+        (name: string, value: string) => {
+            const params = new URLSearchParams(searchParams.toString())
+            params.set(name, value)
+
+            return params.toString()
+        }
+    ), [searchParams, date])
+
     function selectDate(date: Date) {
         if (!date || loading) return;
 
         setDate(date);
+        router.push(pathname + '?' + createQueryString('date', date.getTime().toString()));
     }
 
     function convertToExcel() {
