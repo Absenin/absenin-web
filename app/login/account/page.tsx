@@ -25,8 +25,8 @@ export default function Page() {
         setError("");
 
         setLoading(true);
-
         const response = await loginAccount(email, password)
+        setLoading(false);
 
         if (!response.valid) {
             return setError("Email atau password salah");

@@ -21,6 +21,7 @@ export default function Page() {
 
         setLoading(true);
         const response = await loginAdmin(password)
+        setLoading(false);
 
         if (!response.valid) {
             return setError("Password salah");

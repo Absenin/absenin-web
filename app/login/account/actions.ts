@@ -16,6 +16,13 @@ export async function loginAccount(email: string, password: string): Promise<{ v
         }),
     });
 
+    if (!res.ok) {
+        return {
+            valid: false,
+            session: ""
+        }
+    }
+
     const json = await res.json();
 
     cookieStore.set("session", json.session)
