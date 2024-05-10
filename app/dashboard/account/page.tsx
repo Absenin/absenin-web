@@ -123,9 +123,15 @@ export default function Page() {
                 <h1 className='text-primary font-semibold text-5xl'>Panel Akun</h1>
 
                 <div className="flex gap-5 flex-wrap">
-                    <button onClick={() => addUser()} className='hover:opacity-80 transition-opacity bg-primary px-4 py-2 rounded-xl text-background w-fit font-semibold'>
-                        Tambah Pengguna
-                    </button>
+                    {userData?.data.length! >= 20 ? (
+                        <div className='hover:opacity-80 transition-opacity opacity-70 bg-primary px-4 py-2 rounded-xl text-background w-fit font-semibold'>
+                            Maksimal User Tercapai
+                        </div>
+                    ) : (
+                        <button onClick={() => addUser()} className='hover:opacity-80 transition-opacity bg-primary px-4 py-2 rounded-xl text-background w-fit font-semibold'>
+                            Tambah Pengguna
+                        </button>
+                    )}
                     <Link href={"/dashboard/account/attendance"} className="hover:opacity-80 transition-opacity bg-secondary px-4 py-2 rounded-xl text-text w-fit font-semibold">
                         Absensi
                     </Link>

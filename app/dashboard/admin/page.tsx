@@ -101,9 +101,15 @@ export default function Page() {
             <div className='container pt-10 md:pt-20 flex flex-col gap-y-6 md:gap-y-10'>
                 <h1 className='text-primary font-semibold text-5xl'>Panel Admin</h1>
 
-                <button onClick={addAccount} className='bg-primary px-4 py-2 rounded-xl text-background w-fit font-semibold'>
-                    Tambah Akun
-                </button>
+                {accountsData?.data.length! >= 20 ? (
+                    <div className='bg-primary px-4 py-2 rounded-xl opacity-70 text-background w-fit font-semibold'>
+                        Maksimal Akun Tercapai
+                    </div>
+                ) : (
+                    <button onClick={addAccount} className='bg-primary px-4 py-2 rounded-xl text-background w-fit font-semibold'>
+                        Tambah Akun
+                    </button>
+                )}
 
                 <input onChange={(e) => search(e.target.value)} className="bg-background px-4 py-2 rounded-lg border-2 border-primary focus:outline-none" placeholder="Cari"></input>
 
@@ -123,15 +129,19 @@ export default function Page() {
                                 <TableCell>{account.email}</TableCell>
                                 <TableCell className='text-right'>{new Date(account.createdAt).toLocaleString()}</TableCell>
                                 <TableCell className='text-right flex items-center gap-x-3 justify-end'>
-                                    <button onClick={() => editAccount(account.id)}>
-                                        <Pencil className='stroke-blue-500' />
-                                    </button>
-                                    <button onClick={() => deleteCurrentAccount(account.id)}>
-                                        {loading ?
-                                            <LoaderCircle className='animate-spin stroke-red-500' /> :
-                                            <Trash2 className='stroke-red-500' />
-                                        }
-                                    </button>
+                                    {account.id !== "clw0qw8iy0000x2qbkdn3c9m3" && (
+                                        <>
+                                            <button onClick={() => editAccount(account.id)}>
+                                                <Pencil className='stroke-blue-500' />
+                                            </button>
+                                            <button onClick={() => deleteCurrentAccount(account.id)}>
+                                                {loading ?
+                                                    <LoaderCircle className='animate-spin stroke-red-500' /> :
+                                                    <Trash2 className='stroke-red-500' />
+                                                }
+                                            </button>
+                                        </>
+                                    )}
                                 </TableCell>
                             </TableRow>
                         ))}
