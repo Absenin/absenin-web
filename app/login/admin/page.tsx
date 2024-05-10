@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { loginAdmin } from "./actions";
 import { useRouter } from "next/navigation";
 import Loading from "@/components/loading";
@@ -12,7 +12,8 @@ export default function Page() {
     const router = useRouter()
     const [loading, setLoading] = useState(false);
 
-    async function handleSubmit() {
+    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault()
         if (!password) {
             return setError("Password tidak boleh kosong");
         }
@@ -34,7 +35,7 @@ export default function Page() {
 
     return (
         <main className="flex md:items-center md:justify-center min-h-screen text-text bg-background pt-10 lg:pt-0">
-            <div className="flex flex-col items-center w-full gap-y-10 container max-w-96">
+            <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col items-center w-full gap-y-10 container max-w-96">
                 <h1 className="text-5xl font-semibold w-full">Login Admin</h1>
                 <div className="grid gap-y-6 w-full">
                     <input
@@ -50,7 +51,6 @@ export default function Page() {
                 </div>
                 <div className="grid gap-y-6 w-full">
                     <button
-                        onClick={handleSubmit}
                         type="submit"
                         className="bg-primary w-full text-center text-sm md:text-base lg:text-xl text-background rounded-2xl font-semibold hover:opacity-80 px-6 py-2"
                     >
@@ -60,7 +60,7 @@ export default function Page() {
                         Login Akun
                     </Link>
                 </div>
-            </div>
+            </form>
         </main>
     )
 }

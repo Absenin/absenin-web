@@ -7,7 +7,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog"
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { postAccount } from "@/app/dashboard/admin/actions";
 import { LoaderCircle } from 'lucide-react';
 
@@ -17,7 +17,8 @@ export default function AddAccountDialog({ open, setDialogOpen }: { open: boolea
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
-    async function addAccount() {
+    async function addAccount(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault()
         if (!email || !password) {
             return setError("Email dan password tidak boleh kosong");
         }
@@ -49,41 +50,43 @@ export default function AddAccountDialog({ open, setDialogOpen }: { open: boolea
             <DialogContent className='bg-background'>
                 <DialogHeader>
                     <DialogTitle className="mb-6">Tambahkan Akun</DialogTitle>
-                    <DialogDescription className="flex flex-col gap-y-6">
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-2 rounded-lg border border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                        />
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-2 rounded-lg border border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                        />
-                        {
-                            error && <p className="text-red-500">{error}</p>
-                        }
-                        <div className="flex flex-row gap-x-4">
-                            <button
-                                onClick={() => setDialogOpen(false)}
-                                className="w-full text-center text-sm md:text-base lg:text-xl text-text rounded-2xl font-semibold hover:opacity-80 px-6 py-2"
-                            >
-                                Batal
-                            </button>
-                            <button
-                                disabled={loading}
-                                onClick={addAccount}
-                                className="bg-primary flex justify-center items-center w-full text-center text-sm md:text-base lg:text-xl text-background rounded-2xl font-semibold hover:opacity-80 px-6 py-2"
-                            >
-                                {
-                                    loading ? <LoaderCircle className='animate-spin' /> : "Tambahkan Akun"
-                                }
-                            </button>
-                        </div>
+                    <DialogDescription>
+                        <form onSubmit={(e) => addAccount(e)} className="flex flex-col gap-y-6">
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full px-4 py-2 rounded-lg border border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            />
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full px-4 py-2 rounded-lg border border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                            />
+                            {
+                                error && <p className="text-red-500">{error}</p>
+                            }
+                            <div className="flex flex-row gap-x-4">
+                                <button
+                                    onClick={() => setDialogOpen(false)}
+                                    className="w-full text-center text-sm md:text-base lg:text-xl text-text rounded-2xl font-semibold hover:opacity-80 px-6 py-2"
+                                >
+                                    Batal
+                                </button>
+                                <button
+                                    disabled={loading}
+                                    type="submit"
+                                    className="bg-primary flex justify-center items-center w-full text-center text-sm md:text-base lg:text-xl text-background rounded-2xl font-semibold hover:opacity-80 px-6 py-2"
+                                >
+                                    {
+                                        loading ? <LoaderCircle className='animate-spin' /> : "Tambahkan Akun"
+                                    }
+                                </button>
+                            </div>
+                        </form>
                     </DialogDescription>
                 </DialogHeader>
             </DialogContent>
