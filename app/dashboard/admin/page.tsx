@@ -129,7 +129,7 @@ export default function Page() {
                                 <TableCell>{account.email}</TableCell>
                                 <TableCell className='text-right'>{new Date(account.createdAt).toLocaleString()}</TableCell>
                                 <TableCell className='text-right flex items-center gap-x-3 justify-end'>
-                                    {account.id !== "clw0qw8iy0000x2qbkdn3c9m3" && (
+                                    {account.id !== "clw1iq6hm0000h0qcsq4ejaqz" && (
                                         <>
                                             <button onClick={() => editAccount(account.id)}>
                                                 <Pencil className='stroke-blue-500' />
