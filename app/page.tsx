@@ -32,7 +32,7 @@ export default function Home() {
           <Image src={"/nextjs.png"} alt="" width={1000} height={1000} className="h-6 md:h-20 w-auto" />
           <Image src={"/flask.png"} alt="" width={1000} height={1000} className="h-6 md:h-20 w-auto" />
           <Image src={"/prisma.png"} alt="" width={1000} height={1000} className="h-6 md:h-20 w-auto" />
-          <Image src={"/mysql.png"} alt="" width={1000} height={1000} className="h-6 md:h-20 w-auto" />
+          <Image src={"/postgress.png"} alt="" width={1000} height={1000} className="h-6 md:h-20 w-auto" />
         </div>
       </section>
 
